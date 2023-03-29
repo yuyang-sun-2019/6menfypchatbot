@@ -25,7 +25,7 @@ def hello():
 
 @app.route("/<name>")
 def hello_name(name):
-    print(name)
+    return name
     # try:
     #     BASE_URL = "https://web.whatsapp.com/"
     #     CHAT_URL = "https://web.whatsapp.com/send?phone={phone}&text&type=phone_number&app_absent=1"
