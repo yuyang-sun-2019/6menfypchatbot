@@ -2,7 +2,7 @@ import os
 import sys
 os.path.dirname(sys.executable)
 # import pyautogui
-import pywhatkit
+# import pywhatkit
 import datetime
 # syntax: phone number with country code, message, hour and minutes
 now = datetime.datetime.now()

@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, jsonify
 import os
 import sys
 
-import pywhatkit
+# import pywhatkit
 import datetime
 app = Flask(__name__)
 
