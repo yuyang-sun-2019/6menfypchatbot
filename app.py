@@ -1,37 +1,44 @@
-from flask import Flask, render_template, request, jsonify
+import random
+import string
+import time
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.ui import WebDriverWait
+from webdriver_manager.chrome import ChromeDriverManager
 
-# import ls
-import os
-import sys
+BASE_URL = "https://web.whatsapp.com/"
+CHAT_URL = "https://web.whatsapp.com/send?phone={phone}&text&type=phone_number&app_absent=1"
 
-# import pywhatkit
-import selenium
-import datetime
-app = Flask(__name__)
+chrome_options = Options()
+chrome_options.add_argument("start-maximized")
+user_data_dir = ''.join(random.choices(string.ascii_letters, k=8))
+chrome_options.add_argument("--user-data-dir=/tmp/chrome-data/" + user_data_dir)
+chrome_options.add_argument("--incognito")
 
+browser = webdriver.Chrome(ChromeDriverManager().install(),  options=chrome_options,)
 
-@app.after_request
-def add_headers(response):
-    response.headers['Access-Control-Allow-Origin'] = "*"
-    response.headers['Access-Control-Allow-Headers'] =  "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
-    response.headers['Access-Control-Allow-Methods']=  "POST, GET, PUT, DELETE, OPTIONS"
-    return response
-
-@app.route("/")
-def hello():
-    return render_template('index.html')
-
-
-@app.route("/<name>")
-def hello_name(name):
-    now = datetime.datetime.now()
-    print(now.hour, now.minute+1)
-    selenium.sendwhatmsg('+6586687676', 'I need service for '+name, now.hour,now.minute+1,15)
-    return "Hello there, we have whatsapp your query to our Project V2D department"
+browser.get(BASE_URL)
+browser.maximize_window()
 
 
+phone = "+6586687676"
+message = 'Hi There. This is test message from PythonCircle.com'
 
-if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0',port=8080)
-    # app.run(debug=True, host='127.0.0.1', port=5001)
-#https://github.com/bhavaniravi/flask-tutorial/tree/master/app
+
+browser.get(CHAT_URL.format(phone=phone))
+time.sleep(3)
+
+
+inp_xpath = (
+    '//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[1]'
+)
+input_box = WebDriverWait(browser, 60).until(
+    expected_conditions.presence_of_element_located((By.XPATH, inp_xpath))
+)
+input_box.send_keys(message)
+input_box.send_keys(Keys.ENTER)
+
+time.sleep(10)
