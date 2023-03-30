@@ -33,18 +33,18 @@ def hello_name(name):
         BASE_URL = "https://web.whatsapp.com/"
         CHAT_URL = "https://web.whatsapp.com/send?phone={phone}&text&type=phone_number&app_absent=1"
 
-        # chrome_options = Options()
-        # chrome_options.add_argument("start-maximized")
-        # user_data_dir = ''.join(random.choices(string.ascii_letters, k=8))
-        # chrome_options.add_argument("--user-data-dir=/tmp/chrome-data/" + user_data_dir)
-        # chrome_options.add_argument("--incognito")
+        chrome_options = Options()
+        chrome_options.add_argument("start-maximized")
+        user_data_dir = ''.join(random.choices(string.ascii_letters, k=8))
+        chrome_options.add_argument("--user-data-dir=/tmp/chrome-data/" + user_data_dir)
+        chrome_options.add_argument("--incognito")
         
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-        chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--disable-dev-shm-usage")
-        chrome_options.add_argument("--no-sandbox")
-        driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+        # chrome_options = webdriver.ChromeOptions()
+        # chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        # chrome_options.add_argument("--headless")
+        # chrome_options.add_argument("--disable-dev-shm-usage")
+        # chrome_options.add_argument("--no-sandbox")
+        # driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
         
 
